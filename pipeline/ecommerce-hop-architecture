@@ -1,0 +1,45 @@
+# Save to Delta format as Bronze Layer
+raw_df.write.format("delta").mode("overwrite").save(bronze_path)
+
+--Silver table
+from pyspark.sql.functions import col
+
+# Load Bronze data
+bronze_df = spark.read.format("delta").load(bronze_path)
+
+# Data cleaning and transformation
+silver_df = (bronze_df
+             .filter(col("Quantity") > 0)
+             .na.drop(subset=["CustomerID", "Description"])
+             .withColumn("TotalAmount", col("Quantity") * col("UnitPrice")))
+
+# Save as Silver Layer
+silver_df.write.format("delta").mode("overwrite").save(silver_path)
+
+
+--Gold table
+
+from pyspark.sql.functions import sum
+
+# Load Silver data
+silver_df = spark.read.format("delta").load(silver_path)
+
+# Aggregate data to prepare for reporting
+gold_df = (silver_df
+           .groupBy("CustomerID", "Country")
+           .agg(sum("TotalAmount").alias("TotalSpent")))
+
+# Save as Gold Layer
+gold_df.write.format("delta").mode("overwrite").save(gold_path)
+
+-- Azure SQL DB
+# JDBC Configuration
+jdbc_url = "jdbc:sqlserver://development-ecommerce.database.windows.net:1433;database=ecommerce"
+db_properties = {
+    "user": " ",
+    "password": "",
+    "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+}
+
+# Load Gold data and write to Azure SQL Database
+gold_df.write.jdbc(url=jdbc_url, table="dbo.sales_aggregated", mode="overwrite", properties=db_properties)
