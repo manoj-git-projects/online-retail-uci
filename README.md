@@ -13,7 +13,9 @@ This is a transactional data set which contains all the transactions occurring b
 ![image](https://github.com/user-attachments/assets/61dcf807-2186-473d-8ddd-c85212cbb8f3)
 
 ## SQL Server gold table records
+![image](https://github.com/user-attachments/assets/5c519b9f-63fa-46d0-b61a-2b1b12d2c4bf)
 
+![image](https://github.com/user-attachments/assets/c3786c92-a188-4b1d-bf48-bf6b771d6b8e)
 
 
 
