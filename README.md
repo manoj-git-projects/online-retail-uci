@@ -12,6 +12,18 @@ This is a transactional data set which contains all the transactions occurring b
 ## Execution of the pipeline
 ![image](https://github.com/user-attachments/assets/61dcf807-2186-473d-8ddd-c85212cbb8f3)
 
+## Silver table
+![image](https://github.com/user-attachments/assets/8067b0f0-e64b-4fed-9c9a-445577cccffb)
+
+## Gold table
+![image](https://github.com/user-attachments/assets/e8466295-e10d-495b-a8db-26f0eb4c1fc0)
+
+## Destination Azure SQL cloud DB
+![image](https://github.com/user-attachments/assets/2f90a5e8-aef8-44ba-91b7-4f4d80672872)
+
+![image](https://github.com/user-attachments/assets/31ed979c-5e13-416f-b72e-4b763f924ae9)
+
+
 ## SQL Server gold table records
 ![image](https://github.com/user-attachments/assets/5c519b9f-63fa-46d0-b61a-2b1b12d2c4bf)
 
