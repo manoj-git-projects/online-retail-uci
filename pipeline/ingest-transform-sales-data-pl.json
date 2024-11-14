@@ -1,5 +1,5 @@
 {
-	"name": "ingest-sales-data-pl",
+	"name": "ingest-transform-sales-data-pl",
 	"properties": {
 		"activities": [
 			{

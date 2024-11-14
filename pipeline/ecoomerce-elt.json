@@ -1,0 +1,27 @@
+{
+	"name": "ecoomerce-elt",
+	"properties": {
+		"activities": [
+			{
+				"name": "ecommerce-elt",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ingest-transform-sales-data-pl",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "master-pipeline"
+		},
+		"annotations": []
+	}
+}
