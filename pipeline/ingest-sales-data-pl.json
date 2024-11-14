@@ -1,0 +1,88 @@
+{
+	"name": "ingest-sales-data-pl",
+	"properties": {
+		"activities": [
+			{
+				"name": "ingest-sales-data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureDatabricksDeltaLakeSink",
+						"importSettings": {
+							"type": "AzureDatabricksDeltaLakeImportCommand"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "salesdata",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureDatabricksDeltaLakeDataset",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "transforamtio-ecommerce",
+				"description": "from bronze to gold aggregated data in delta lake",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "ingest-sales-data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/ecommerce/elt-ecommerce"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "sales"
+		},
+		"annotations": [
+			"sales"
+		],
+		"lastPublishTime": "2024-11-14T08:02:42Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

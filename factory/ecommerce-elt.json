@@ -1,0 +1,9 @@
+{
+	"name": "ecommerce-elt",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "40e41cb2-5bc2-4d87-80a5-76b71b9c63ce",
+		"tenantId": "9179d01a-e94c-4488-b5f0-4554bc474f8c"
+	}
+}
